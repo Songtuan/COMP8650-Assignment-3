@@ -188,4 +188,70 @@ Extend from equation \ref{optimal}, the optimal value under this situation is:
 \begin{equation}
 	\displaystyle\sum_{i = 1}^{\lfloor \alpha \rfloor}c^{*}_{i} + q c^{*}_{\lfloor \alpha \rfloor + 1}
 \end{equation}
+
+\section*{Q4}
+We first discuss the situation that $\mathcal{A}^{-T} \mathbf{c} \preceq 0$. We take a point $\mathbf{x}^{*}$ satisfied $\mathcal{A} \mathbf{x}^{*}$. In order to verify $\mathbf{x}^{*}$ is the optimal point, we need to check the first-order condition always hold. Indeed, for any feasible points of this problem, these is:
+\begin{equation}
+	\begin{aligned}
+	\nabla f_{0}(\mathbf{x}^{*})(\mathbf{x} - \mathbf{x}^{*}) &= \mathbf{c}^{T}(\mathbf{x} - \mathbf{x}^{*}) \\
+	&= \mathbf{c}^{T} \mathcal{A}^{-1} \mathcal{A} (\mathbf{x} - \mathbf{x}^{*}) \\
+	&= (\mathcal{A}^{-T} \mathbf{c})^{T} \mathcal{A} (\mathbf{x} - \mathbf{x}^{*})
+	\end{aligned}
+\end{equation}
+Since $\mathcal{A} \mathbf{x} \preceq \mathbf{b}$ and $\mathcal{A} \mathbf{x}^{*} = b$, we have:
+\begin{equation}
+	\begin{aligned}
+		\mathcal{A}(\mathbf{x} - \mathbf{x}^{*}) &= \mathcal{A} \mathbf{x} - \mathcal{A} \mathbf{x}^{*} \preceq 0
+	\end{aligned}
+\end{equation}
+Combine this inequality with our assumption: $\mathcal{A}^{-T} \mathbf{c} \preceq 0$, we have:
+\begin{equation}
+	(\mathcal{A}^{-T} \mathbf{c})^{T} \mathcal{A} (\mathbf{x} - \mathbf{x}^{*}) \geq 0
+\end{equation}
+As a result, we have verified that $\mathbf{x}^{*}$ is the optimal point. Furthermore, $\mathbf{x}^{*}$ is unique as $\mathcal{A}$ is square and invert-able:
+\begin{equation}
+	\mathbf{x}^{*} = \mathcal{A}^{-1} \mathbf{b}
+\end{equation}
+Therefore, the optimal value $p^{*}$ under the situation: $\mathcal{A}^{-T} \mathbf{c} \preceq 0$ is:
+\begin{equation}
+	\begin{aligned}
+		p^{*} &= \mathbf{c}^{T} \mathbf{x}^{*} \\
+		&= \mathbf{c}^{T} \mathcal{A}^{-1} \mathbf{b}
+	\end{aligned}
+\end{equation}
+Then, we start to prove that $\mathbf{c}^{T} \mathbf{x}$ is unbound below if $\mathcal{A}^{-T} \mathbf{c} \succ 0$. Indeed, if $\mathbf{b} \prec 0$, then, for any $\mathbf{x}'$ in the feasible set, there is:
+\begin{equation}
+	\mathcal{A} \mathbf{x}' \prec b \prec 0
+	\label{a_1}
+\end{equation}
+If $\mathbf{b} \succeq 0$, we can also choose a $\mathbf{x}'$ so that:
+\begin{equation}
+	\mathcal{A} \mathbf{x}' \prec 0 \prec \mathbf{b}
+	\label{a_2}
+\end{equation}
+This is because $\mathcal{A}$ is a square matrix and is full rank, which means the column space of $\mathcal{A}$ is the whole $\mathcal{R}^{n}$. As a result, the linear combination of $\mathcal{A}$'s columns: $\mathcal{A} \mathbf{x}$ can be any vector within $\mathcal{R}^{n}$. Hence, we can choose some specific combination $\mathbf{x}'$ so that $\mathcal{A} \mathbf{x}' \prec 0$.
+
+The equations \ref{a_1} and \ref{a_2} indicate that we can always find some $\mathbf{x}'$ that satisfied  $\mathcal{A} \mathbf{x}' \prec 0$. Furthermore, we can multiple $\mathbf{x}'$ with any $t > 0$ and we still have:
+\begin{equation}
+	\mathcal{A} \, (t \mathbf{x}') \prec 0
+\end{equation}
+ Additionally, there is:
+ \begin{equation}
+ 	\begin{aligned}
+ 		\mathbf{c}^{T} t\mathbf{x}' &=\mathbf{c}^{T} \mathcal{A}^{-1} \mathcal{A} \, t\mathbf{x}' \\
+ 		&= (\mathcal{A}^{-T} \mathbf{c})^{T} \mathcal{A} \, t \mathbf{x}'
+ 	\end{aligned}
+ \end{equation}
+Since $\mathcal{A}^{-T} \mathbf{c} \succ 0$ and $\mathcal{A} \, (t \mathbf{x}') \prec 0$, we have:
+\begin{equation}
+	\mathbf{c}^{T} t\mathbf{x}' = (\mathcal{A}^{-T} \mathbf{c})^{T} \mathcal{A} \, t \mathbf{x}' < 0
+\end{equation}
+Which will goes to $-\infty$ when $t \rightarrow \infty$. Therefore, we have proved $\mathbf{c}^{T} \mathbf{x}$ is unbound below. In conclusion, we have:
+\begin{equation}
+	p^{*} = 
+	\begin{cases}
+		\mathbf{c}^{T} \mathcal{A}^{-1} \mathbf{b} \quad & \mathcal{A}^{-T} \mathbf{c} \preceq 0 \\
+		-\infty \quad & \textit{otherwise} 
+	\end{cases}
+\end{equation}
 \end{document}
