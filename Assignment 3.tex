@@ -1,0 +1,191 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{sectsty}
+
+\sectionfont{\usefont{OT1}{phv}{b}{n} \sectionrule{0pt}{0pt}{-5pt}{3pt}}
+	
+\author{Songtuan Lin u6162630}
+\title{Assignment 3}
+\begin{document}
+\maketitle
+
+\section*{Q1}
+\subsection*{(a)}
+A path is start at node 1 and end at node $n$ if the number of edges that outflow node 1 is equal to the number of edges that flow into node n. Hence, according to this property, the equation can be written as:
+\begin{equation}
+	\displaystyle\sum_{i \neq 1} x_{1, i} = \displaystyle\sum_{j \neq n}x_{j, n}
+	\label{1}
+\end{equation}
+
+\subsection*{(b)}
+The path pass through any node $i$ except node 1 and node $n$ only once indicate the number of edge that flow into node $i$ small or equal to one. Hence, the constrain can be written as:
+\begin{equation}
+	\displaystyle\sum_{j \neq i}x_{j, i} \leq 1 \quad \textit{for } i \neq 1 \textit{ and } i \neq n
+\end{equation}
+
+\subsection*{(c)}
+The number of times a path goes into any node $i$ is the same as the number of times a path goes out of the same node indicate that the number of edges that flow into node $i$ is equal to the number of edges that flow out this node. Hence, the constrain can be expressed as:
+\begin{equation}
+	\displaystyle\sum_{j \neq i}x_{i, j} = \displaystyle\sum_{k \neq i}x_{k, i} \quad \textit{for } i \neq 1 \textit{ and } i \neq n
+\end{equation}
+
+\subsection*{(d)}
+It is easy to find out that the cost of a path which specified by $x_{i,j}$ is:
+\begin{equation}
+	\displaystyle\sum_{i, j} c_{i, j} x_{i, j}
+	\label{4}
+\end{equation}
+
+\subsection*{(e)}
+Following equation \ref{1} to \ref{4}, the \textit{Shortest Path Problem} can be formalized into optimization problem as:
+\begin{equation}
+	\begin{aligned}
+		\displaystyle\min_{x_{i,j}} \quad & \displaystyle\sum_{i, j} c_{i, j} x_{i, j} \\
+		\textsl{s.t.} \quad & \displaystyle\sum_{i \neq 1} x_{1, i} = \displaystyle\sum_{j \neq n}x_{j, n} \\
+		& \displaystyle\sum_{j \neq i}x_{j, i} \leq 1 \quad \textit{for } i \neq 1 \textit{ and } i \neq n \\
+		& \displaystyle\sum_{j \neq i}x_{i, j} = \displaystyle\sum_{k \neq i}x_{k, i} \quad \textit{for } i \neq 1 \textit{ and } i \neq n \\
+		& x_{i, j} \in \{ 0, 1 \}
+	\end{aligned}
+\end{equation}
+
+\subsection*{(f)}
+Need modification
+\section*{Q2}
+In order to prove that $\mathbf{x}^{*}$ is the optimal points of function $f_{0}(\mathbf{x})\frac{1}{2} \mathbf{x}^{T} \mathcal{P} \mathbf{x} + \mathbf{q}^{T} \mathbf{x} + r$ at point $\mathbf{x}^{*}$, we need to verify that for any $-1 \preceq \mathbf{x} \preceq 1$, the following equation:
+\begin{equation}
+	\nabla f_{0}(\mathbf{x}^{*})(\mathbf{x} - \mathbf{x}^{*}) \geq 0
+	\label{condition}
+\end{equation}
+always hold. Indeed, the gradient of function $f_{0}$ at $\mathbf{x}^{*}$ is:
+\begin{equation}
+	\nabla f_{0}(\mathbf{x}^{*}) = \mathcal{P} \mathbf{x}^{*} + \mathbf{q}^{T} = 		\begin{bmatrix}
+	-1 \\
+	0\\
+	2
+	\end{bmatrix}
+	\label{gradient}
+\end{equation}
+By substituting equation \ref{gradient} to \ref{condition}, we can rewrite the condition that need to be verified as:
+\begin{equation}
+	\begin{aligned}
+		\begin{bmatrix}
+			-1 \\
+			0 \\
+			2
+		\end{bmatrix} (\mathbf{x} - \begin{bmatrix}
+		1 \\
+		0.5 \\
+		-1
+		\end{bmatrix}) &= -1(x_{1} - 1) + 2(x_{3} + 1) \\
+		& \geq 0
+	\end{aligned}
+\end{equation}
+As a result, we need to verify the minimum value of $-1(x_{1} - 1) + 2(x_{3} + 1)$ is greater or equal to zero, which can be formalized as a \textit{Linear Programming Problem} as:
+\begin{equation}
+	\begin{aligned}
+		\displaystyle\min_{x_{1}, x_{3}} \quad & -x_{1} + 2x_{2} + 3 \\
+		\textsl{s.t.} \quad & -1 \leq x_{1} \leq 1 \\
+		& -1 \leq x_{3} \leq 1
+	\end{aligned}
+\end{equation}
+The optimal point of this problem can be obtained by simple inspection, which is $(1, -1)$. Hence, the minimum value of $-x_{1} + 2x_{2} + 3$ is 0, which means $\nabla f_{0}(\mathbf{x}^{*})(\mathbf{x} - \mathbf{x}^{*}) \geq 0$ always hold and $\mathbf{x}^{*}$ is the optimal point.
+
+\section*{Q3}
+
+\subsection*{(a)}
+The variable $\mathbf{x}$ can be decomposed as:
+\begin{equation*}
+	\mathbf{x} = \mathbf{y} + \mathbf{x_{0}}
+\end{equation*} 
+Where $\mathbf{y} \in \mathcal{N}(\mathcal{A})$ can be any vector within the null space of $\mathcal{A}$ and $\mathbf{x_{0}}$ is the optimal point of original problem. The reason this equation always hold is:
+\begin{equation}
+	\begin{aligned}
+		\mathcal{A}\mathbf{x} &= \mathcal{A}(\mathbf{y} + \mathbf{x_{0}}) \\
+		&= \mathcal{A}\mathbf{y} + \mathcal{A}\mathbf{x_{0}} \\
+		&= 0 + \mathbf{b}
+	\end{aligned}
+\end{equation}
+Based on this decomposition, there is:
+\begin{equation}
+	\nabla f_{0}(\mathbf{x_{0}})(\mathbf{x} - \mathbf{x_{0}}) = \mathbf{c}^{T}\mathbf{y}
+\end{equation}
+If the optimal point $\mathbf{x_{0}}$ exist, then, $\mathbf{c}^{T} \mathbf{y} \geq 0$ for any $\mathbf{y} \in \mathcal{N}(\mathcal{A})$ must be true. However, since both $\mathbf{y}$ and $-\mathbf{y}$ are in $\mathcal{N}(\mathcal{A})$, there is:
+\begin{equation}
+	\begin{cases}
+		\mathbf{c}^{T} \mathbf{y} \geq 0 \\
+		-\mathbf{c}^{T} \mathbf{y} \geq 0
+	\end{cases}
+\end{equation}
+Hence, $\mathbf{c}^{T} \mathbf{y}$ must equal to 0 for any $\mathbf{y} \in \mathcal{N}(\mathcal{A})$, which means: $\mathbf{c}$ is perpendicular to $\mathcal{N}(\mathcal{A})$. Furthermore, since $\mathcal{R}(\mathcal{A}) \perp \mathcal{N}(\mathcal{A})$, where $\mathcal{R}(\mathcal{A})$ is the row space of $\mathcal{A}$, we can conduct that $\mathbf{c} \in \mathcal{R}(\mathcal{A})$. Therefore, $\mathbf{c}$ is some linear combination of $\mathcal{A}$'s rows:
+\begin{equation}
+	\mathbf{c} = \mathcal{A}^{T} \mathbf{\lambda} \quad (\mathbf{\lambda} \in \mathcal{R}^{n})
+\end{equation}
+Additionally, since the optimal point $\mathbf{x_{0}}$ must be feasible, $\mathbf{x_{0}}$ should satisfied $\mathcal{A} \mathbf{x} = \mathbf{b}$. As a result, the optimal solution of original problem under this circumstance is:
+\begin{equation}
+	\begin{aligned}
+		\mathbf{c}^{T} \mathbf{x_{0}} &= \mathbf{\lambda}^{T} \mathcal{A} \mathbf{x_{0}} \\
+		&=\mathbf{\lambda}^{T} \mathbf{b}
+	\end{aligned}
+\end{equation}
+Now, we tend to discuss the situation that $\mathbf{c} \notin \mathcal{R}(\mathcal{A})$. We can still decompose variable $\mathbf{x}$  with some $\mathbf{x}'$ which satisfied $\mathcal{A} \mathbf{x}' = \mathbf{b}$ as:
+\begin{equation*}
+	\mathbf{x} = \mathbf{y} + \mathbf{x}'
+\end{equation*}
+Where $\mathbf{y} \in \mathcal{N}(\mathcal{A})$. As a result, the objective function can be written as:
+\begin{equation*}
+	f_{0} = \mathbf{c}^{T}(\mathbf{y} + \mathbf{x}')
+\end{equation*}
+Since $\mathbf{c}^{T} \mathbf{x}'$ is a constant, we are actually minimize $\mathbf{c}^{T} \mathbf{y}$. Furthermore, we can always find some $\mathbf{y}^{*}$ which satisfied $\mathbf{c}^{T} \mathbf{y}^{*} < 0$. As a result, by multiple $\mathbf{y}$  with any $t > 0$, $\mathbf{c}^{T} t\mathbf{y}$ is unbound below, which means, the optimal value is $-\infty$.
+
+In conclusion, the optimal value of this problem is:
+\begin{equation}
+	p^{*} = 
+	\begin{cases}
+		-\infty \quad & \mathbf{c} \notin \mathcal{R}(\mathcal{A}) \\
+		\mathbf{\lambda}^{T} \mathbf{b} \quad & \mathbf{c} \in \mathcal{R}(\mathcal{A}) \\
+		\infty \quad & \mathbf{x}  \textit{ is infeasible} 
+	\end{cases}
+\end{equation}
+
+\subsection*{(b)}
+The objective function can be written as:
+\begin{equation}
+	f_{0}(\mathbf{x}) = \displaystyle\sum_{i = 1}^{n}c_{i} x_{i}
+\end{equation}
+It is obvious that for each $c_{i}$, $f_{0}$ will achieve the minimum at $\mathbf{x}^{*}$ if:
+\begin{equation}
+	x^{*}_{i} = 
+	\begin{cases}
+	u \quad & c_{i} \leq 0 \\
+	l \quad & \textit{otherwise}
+	\end{cases}
+\end{equation}
+This can be proved through verifying $\nabla f_{0}(\mathbf{x}^{*})(\mathbf{x} - \mathbf{x}^{*}) \geq 0$. Indeed, we have:
+\begin{equation}
+	\nabla f_{0}(\mathbf{x}^{*})(\mathbf{x} - \mathbf{x}^{*}) = \displaystyle\sum_{i}c_{i}(x_{i} - x^{*}_{i})
+\end{equation}
+For each $c_{i}(x_{i} - x^{*}_{i})$, if $c_{i} \leq 0$, then, $x^{*}_{i} = u$ and $x_{i} - x^{*}_{i} \leq 0$ as $x_{i} \leq u = x^{*}_{i}$. As a result, $c_{i}(x_{i} - x^{*}_{i}) \geq 0$ when $c_{i} \leq 0$. Additionally, by using similar method, we can also prove that $c_{i}(x_{i} - x^{*}_{i}) \geq 0$ when $c_{i} > 0$. As a result $c_{i}(x_{i} - x^{*}_{i}) \geq 0$ always hold, hence, $\nabla f_{0}(\mathbf{x}^{*})(\mathbf{x} - \mathbf{x}^{*}) \geq 0$.
+
+\subsection*{(c)}
+Intuitively, the minimum value of $\displaystyle\sum_{i = 1}^{n}c_{i}x_{i}$ under constrain $\displaystyle\sum_{i = 1}^{n} x_{i} = 1$ and $0 \leq x_{i} \leq 1$ is:
+\begin{equation}
+	c^{*}_{1} + c^{*}_{2} + \cdots + c^{*}_{\alpha}
+	\label{optimal} 
+\end{equation}
+Where $c^{*}_{i}$ is the \textit{i}th largest element within $\mathbf{c}$. This formulation indicate the minimum value of $\mathbf{c}^{T} \mathbf{x}$ is the sum of first $\alpha$ smallest element within $\mathbf{c}$. Indeed, in \textit{Question 7(b)} of last assignment, we already proved that the maximum value of $\mathbf{y}^{T} \mathbf{x}$ for any $\mathbf{y}$ under constrain $\mathbf{1}^{T} \mathbf{x} = \alpha$ and $0 \preceq \mathbf{x} \preceq 1$ is $\displaystyle\sum_{i = 1}^{\alpha}y^{*}_{i}$, which is the first $\alpha$ largest element within $\mathbf{y}$. By multiplying each $\mathbf{y}$ with -1, $-y^{*}_{i}$ becomes the \textit{i}th smallest element within $-\mathbf{y}$ and $-\displaystyle\sum_{i = 1}^{\alpha}y^{*}_{i}$ become the minimum value of $-\mathbf{y}^{T} \mathbf{x}$. Since $\mathbf{y}$ is arbitrary, we can conduct that the minimum value of $\mathbf{y}^{T} \mathbf{x}$ under constrain $\mathbf{1}^{T} \mathbf{x} = \alpha$ and $0 \preceq \mathbf{x} \preceq 1$ is the first $\alpha$ smallest number within $\mathbf{y}$. As a result, the optimal value of $\mathbf{c}^{T} \mathbf{x}$ is $\displaystyle\sum_{i = 1}^{\alpha}c^{*}_{i}$
+
+Furthermore, if $\alpha$ is not integer, we can decompose $\alpha$ with some fraction $0 \leq q \leq 1$ as:
+\begin{equation*}
+	\alpha = \lfloor \alpha \rfloor + q
+\end{equation*}
+Extend from equation \ref{optimal}, the optimal value under this situation is: 
+\begin{equation}
+	\displaystyle\sum_{i = 1}^{\lfloor \alpha \rfloor}c^{*}_{i} + q c^{*}_{\lfloor \alpha \rfloor + 1}
+\end{equation}
+\end{document}
