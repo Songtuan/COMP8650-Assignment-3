@@ -254,4 +254,71 @@ Which will goes to $-\infty$ when $t \rightarrow \infty$. Therefore, we have pro
 		-\infty \quad & \textit{otherwise} 
 	\end{cases}
 \end{equation}
+
+\section*{Q5}
+We first introduce a set of new variables that satisfied:
+\begin{equation}
+	y_{i} = b_{i} - \mathbf{a}^{T}_{i} \mathbf{x}
+\end{equation}
+Therefore, the original problem can be transformed to:
+\begin{equation}
+	\begin{aligned}
+		\displaystyle\min \quad & -\displaystyle\sum_{i = 1}^{m} \log y_{i} \\
+		\textsl{s.t.} \quad & y_{i} - b_{i} + \mathbf{a}^{T}_{i} \mathbf{x} = 0 \quad i = 1, 2, \cdots, m
+	\end{aligned}
+	\label{new_var}
+\end{equation}
+The Lagrangian of problem \ref{new_var} can be written as:
+\begin{equation}
+	\mathcal{L}(\mathbf{x}, \mathbf{y}, \mathbf{v}) = -\displaystyle\sum_{i = 1}^{m} \log y_{i} + \displaystyle\sum_{i}^{m}v_{i}(y_{i} - b_{i} + \mathbf{a}_{i} \mathbf{x})
+\end{equation}
+with the domain: $y_{i} > 0$ and $\mathbf{x} \in \mathcal{R}^{n}$. The dual function:
+\begin{equation}
+	g(\mathbf{\lambda}, \mathbf{v}) = \displaystyle\inf_{\mathbf{x}, \mathbf{y}} \mathcal{L}(\mathbf{x}, \mathbf{y}, \mathbf{v})
+\end{equation}
+Indeed, the Lagrangian can be further expressed as:
+\begin{equation}
+	\begin{aligned}
+		\mathcal{L}(\mathbf{x}, \mathbf{y}, \mathbf{v}) &= \displaystyle\sum_{i = 1}^{m} (v_{i} y_{i} - \log y_{i}) - \displaystyle\sum_{i = 1}^{m}v_{i}(b_{i} - \mathbf{a}_{i}^{T} \mathbf{x}) \\
+	&= \displaystyle\sum_{i = 1}^{m} (v_{i} y_{i} - \log y_{i}) - \mathbf{b}^{T} \mathbf{v} + \mathbf{v}^{T} \mathcal{A} \mathbf{x}
+	\end{aligned}
+\end{equation}
+Where $\mathcal{A} = \begin{bmatrix}
+-\mathbf{a}_{1}^{T}- \\
+-\mathbf{a}_{2}^{T}- \\
+\vdots \\
+-\mathbf{a}_{m}^{T}-
+\end{bmatrix}$ and $\mathbf{b} = \begin{bmatrix}
+b_{1} \\
+b_{2} \\
+\vdots \\
+b_{m}
+\end{bmatrix}$.
+We can first inspect the part $- \mathbf{b}^{T} \mathbf{v} + \mathbf{v}^{T} \mathcal{A} \mathbf{x}$, which is basically an affine function with domain $\mathbf{x} \in \mathcal{R}^{n}$. This affine function is unbound below unless it satisfied:
+\begin{equation*}
+	\mathbf{v}^{T} \mathcal{A} = \mathbf{0}
+\end{equation*}
+Under this situation, $\displaystyle\inf_{\mathbf{x}}(- \mathbf{b}^{T} \mathbf{v} + \mathbf{v}^{T} \mathcal{A} \mathbf{x}) = -\mathbf{b}^{T} \mathbf{v}$. Furthermore, for each component $v_{i}y_{i} - \log y_{i}$: If $v_{i} \leq 0$, this function is obviously unbound below. When $v_{i} > 0$, it reaches the minimum when $y_{i} = \frac{1}{v_{i}}$. This minimum point can be obtained by noticing this is a convex function and setting it's first order derivative to zero. Hence, there is:
+\begin{equation}
+	\begin{aligned}
+		\displaystyle\inf_{\mathbf{y}}\displaystyle\sum_{i = 1}^{m}(v_{i} y_{i} - \log y_{i}) &= \displaystyle\sum_{i = 1}^{m}(1 - \log \frac{1}{v_{i}}) \\
+		&= m + \displaystyle\sum_{i = 1}^{m} \log v_{i}
+	\end{aligned}
+\end{equation} 
+As a result, we can conclude that:
+\begin{equation}
+	g(\mathbf{\lambda}, \mathbf{v}) = 
+	\begin{cases}
+		m + \displaystyle\sum_{i = 1}^{m} \log v_{i} - \mathbf{b}^{T} \mathbf{v} \quad & \mathbf{v}^{T} \mathcal{A} = \mathbf{0} \textit{ and } \mathbf{v} \succ 0 \\
+		-\infty \quad & \textit{otherwise}
+	\end{cases}
+\end{equation}
+Bases on this dual function, we can write the dual function as:
+\begin{equation}
+	\begin{aligned}
+		\displaystyle\max_{\mathbf{\lambda}, \mathbf{v}} \quad & m + \displaystyle\sum_{i = 1}^{m} \log v_{i} - \mathbf{b}^{T} \mathbf{v} \\
+		\textsl{s.t.} \quad & \mathbf{v} \succ 0 \\
+		& \mathbf{v}^{T} \mathcal{A} = \mathbf{0}
+	\end{aligned}
+\end{equation}
 \end{document}
