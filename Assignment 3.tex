@@ -198,7 +198,7 @@ We first discuss the situation that $\mathcal{A}^{-T} \mathbf{c} \preceq 0$. We 
 	&= (\mathcal{A}^{-T} \mathbf{c})^{T} \mathcal{A} (\mathbf{x} - \mathbf{x}^{*})
 	\end{aligned}
 \end{equation}
-Since $\mathcal{A} \mathbf{x} \preceq \mathbf{b}$ and $\mathcal{A} \mathbf{x}^{*} = b$, we have:
+Since $\mathcal{A} \mathbf{x} \preceq \mathbf{b}$ and $\mathcal{A} \mathbf{x}^{*} = \mathbf{b}$, we have:
 \begin{equation}
 	\begin{aligned}
 		\mathcal{A}(\mathbf{x} - \mathbf{x}^{*}) &= \mathcal{A} \mathbf{x} - \mathcal{A} \mathbf{x}^{*} \preceq 0
@@ -319,6 +319,54 @@ Bases on this dual function, we can write the dual function as:
 		\displaystyle\max_{\mathbf{\lambda}, \mathbf{v}} \quad & m + \displaystyle\sum_{i = 1}^{m} \log v_{i} - \mathbf{b}^{T} \mathbf{v} \\
 		\textsl{s.t.} \quad & \mathbf{v} \succ 0 \\
 		& \mathbf{v}^{T} \mathcal{A} = \mathbf{0}
+	\end{aligned}
+\end{equation}
+
+\section*{Q6}
+From the last equation of \textit{KKT} condition, there is:
+\begin{equation}
+	\begin{aligned}
+		\Big( \nabla f_{0}(\mathbf{x}^{*}) + \displaystyle\sum_{i = 1}^{m} \lambda_{i}^{*} \nabla f_{i}(\mathbf{x}^{*}) \Big)^{T} &= \nabla f_{0}^{T}(\mathbf{x}^{*}) +  \displaystyle\sum_{i = 1}^{m} \lambda_{i}^{*} \nabla f_{i}^{T}(\mathbf{x}^{*}) \\
+		&= \mathbf{0}
+	\end{aligned}
+\end{equation}
+By multiplying this equation with $\mathbf{x} - \mathbf{x}^{*}$, where $\mathbf{x}$ could be any point in the feasible set, we have:
+\begin{equation}
+	\begin{aligned}
+		\nabla f_{0}^{T}(\mathbf{x}^{*}) (\mathbf{x} - \mathbf{x}^{*}) = -\displaystyle\sum_{i = 1}^{m} \Big( \lambda_{i}^{*} \nabla f_{i}^{T}(\mathbf{x}^{*}) (\mathbf{x} - \mathbf{x}^{*}) \Big)
+	\end{aligned}
+\end{equation}
+Hence, we can start our prove by first consider the sign of single component: $\lambda_{i}^{*} \nabla f_{i}^{T}(\mathbf{x}^{*}) (\mathbf{x} - \mathbf{x}^{*})$. Indeed, the \textit{KKT} conditions:
+\begin{equation}
+	\begin{cases}
+		f_{i}(\mathbf{x}^{*}) \leq 0 \\
+		\lambda_{i} \geq 0 \\
+		\lambda_{i} f_{i}(\mathbf{x}^{*}) = 0
+	\end{cases}
+\end{equation}
+Indicate that either $\lambda_{i}^{*}$ or $f_{i}(\mathbf{x}^{*})$ must equal to zero. For the situation that $\lambda_{i}^{*} = 0$, we have:
+\begin{equation}
+	\lambda_{i}^{*} \nabla f_{i}^{T}(\mathbf{x}^{*}) (\mathbf{x} - \mathbf{x}^{*}) = 0
+	\label{c_1}
+\end{equation}
+For the situation $f_{i}(\mathbf{x}^{*}) = 0$, we first notice that $f_{i}$ is convex function. Hence, the first-order condition always hold, which indicate for any $\mathbf{x}$ and $\mathbf{x}^{*}$ in feasible set, there is:
+\begin{equation}
+	f_{i}(\mathbf{x}) \geq f_{i}(\mathbf{x}^{*}) + \nabla f_{i}^{T}(\mathbf{x}^{*})(\mathbf{x} - \mathbf{x}^{*})
+\end{equation}
+Based on our assumption that $f_{i}(\mathbf{x}^{*}) = 0$ and the fact: for every feasible $\mathbf{x}$, $f_{i}(\mathbf{x}) \leq 0$, we can conduct:
+\begin{equation}
+	0 \geq \nabla f_{i}^{T}(\mathbf{x}^{*})(\mathbf{x} - \mathbf{x}^{*})
+	\label{c_2}
+\end{equation}
+Combine the inequality \ref{c_1} and \ref{c_2}, we can conclude:
+\begin{equation}
+	\displaystyle\sum_{i = 1}^{m} \Big( \lambda_{i}^{*} \nabla f_{i}^{T}(\mathbf{x}^{*}) (\mathbf{x} - \mathbf{x}^{*}) \Big) \leq 0
+\end{equation}
+Hence:
+\begin{equation}
+	\begin{aligned}
+		\nabla f_{0}^{T}(\mathbf{x}^{*}) (\mathbf{x} - \mathbf{x}^{*}) &= - \displaystyle\sum_{i = 1}^{m} \Big( \lambda_{i}^{*} \nabla f_{i}^{T}(\mathbf{x}^{*}) (\mathbf{x} - \mathbf{x}^{*}) \Big) \\
+		&\geq 0
 	\end{aligned}
 \end{equation}
 \end{document}
