@@ -16,24 +16,54 @@
 \maketitle
 
 \section*{Q1}
-\subsection*{(a)}
-A path is start at node 1 and end at node $n$ if the number of edges that outflow node 1 is equal to the number of edges that flow into node n. Hence, according to this property, the equation can be written as:
+We first define the set that contain all the nodes within graph:
 \begin{equation}
-	\displaystyle\sum_{i \neq 1} x_{1, i} = \displaystyle\sum_{j \neq n}x_{j, n}
+	\mathcal{N} = \{ 1, 2, \cdots, n \}
+\end{equation}
+\subsection*{(a)}
+A path is start at node 1 and end at node $n$ if there is only one edge flow out of node 1 and one edge flow into node $n$ in addition to no edge flow into node 1 and no edge flow out of edge $n$. Hence, according to this property, the equation can be written as:
+\begin{equation}
+	\begin{cases}
+		\displaystyle\sum_{i \in \mathcal{N}} x_{1, i} = 1 \\
+		\displaystyle\sum_{j \in \mathcal{N}} x_{j, n} = 1 \\
+		\displaystyle\sum_{j \in \mathcal{N}} x_{i, 1} = 0 \\
+		\displaystyle\sum_{j \in \mathcal{N}} x_{n, j} = 0
+	\end{cases}
 	\label{1}
 \end{equation}
 
 \subsection*{(b)}
-The path pass through any node $i$ except node 1 and node $n$ only once indicate the number of edge that flow into node $i$ small or equal to one. Hence, the constrain can be written as:
+The path pass through any node at most once indicate the number of edge that flow out of any node is small or equal to one. Hence, the constrain can be written as:
+
 \begin{equation}
-	\displaystyle\sum_{j \neq i}x_{j, i} \leq 1 \quad \textit{for } i \neq 1 \textit{ and } i \neq n
+	\begin{cases}
+		\displaystyle\sum_{j \in \mathcal{N}} x_{1, j} \leq 1 \\
+		\displaystyle\sum_{j \in \mathcal{N}} x_{2, j} \leq 1 \\
+		\vdots \\
+		\displaystyle\sum_{j \in \mathcal{N}} x_{n, j} \leq 1 \\
+	\end{cases}
 \end{equation}
+We can define function $f_{i}(\mathbf{x})$ as:
+\begin{equation}
+	f_{i}(\mathbf{x}) = \displaystyle\sum_{j \in \mathcal{N}} x_{i, j} - 1
+\end{equation}
+Where $i = 1, 2, \cdots n$.
 
 \subsection*{(c)}
 The number of times a path goes into any node $i$ is the same as the number of times a path goes out of the same node indicate that the number of edges that flow into node $i$ is equal to the number of edges that flow out this node. Hence, the constrain can be expressed as:
 \begin{equation}
-	\displaystyle\sum_{j \neq i}x_{i, j} = \displaystyle\sum_{k \neq i}x_{k, i} \quad \textit{for } i \neq 1 \textit{ and } i \neq n
+	\begin{cases}
+		\displaystyle\sum_{i \in \mathcal{N}} x_{i, 2} = \displaystyle\sum_{j \ in \mathcal{N}} x_{2, j} \\
+		\displaystyle\sum_{i \in \mathcal{N}} x_{i, 3} = \displaystyle\sum_{j \ in \mathcal{N}} x_{3, j} \\
+		\vdots \\
+		\displaystyle\sum_{i \in \mathcal{N}} x_{i, n - 1} = \displaystyle\sum_{j \ in \mathcal{N}} x_{n - 1, j}
+	\end{cases}
 \end{equation}
+We can also define function $h_{k}(\mathbf{x})$ as:
+\begin{equation}
+	h_{k}(\mathbf{x}) = \displaystyle\sum_{i \in \mathcal{N}} x_{i, k} -\displaystyle\sum_{j \in \mathcal{N}} x_{k, j}
+\end{equation}
+Where $k = 2, 3, \cdots, n - 1$.
 
 \subsection*{(d)}
 It is easy to find out that the cost of a path which specified by $x_{i,j}$ is:
@@ -47,15 +77,19 @@ Following equation \ref{1} to \ref{4}, the \textit{Shortest Path Problem} can be
 \begin{equation}
 	\begin{aligned}
 		\displaystyle\min_{x_{i,j}} \quad & \displaystyle\sum_{i, j} c_{i, j} x_{i, j} \\
-		\textsl{s.t.} \quad & \displaystyle\sum_{i \neq 1} x_{1, i} = \displaystyle\sum_{j \neq n}x_{j, n} \\
-		& \displaystyle\sum_{j \neq i}x_{j, i} \leq 1 \quad \textit{for } i \neq 1 \textit{ and } i \neq n \\
-		& \displaystyle\sum_{j \neq i}x_{i, j} = \displaystyle\sum_{k \neq i}x_{k, i} \quad \textit{for } i \neq 1 \textit{ and } i \neq n \\
+		\textsl{s.t.} \quad & f_{i}(\mathbf{x}) \leq 0  \quad i = 1, 2, \cdots n \\
+		& \displaystyle\sum_{i \in \mathcal{N}} x_{1, i} = 1 \\
+		& \displaystyle\sum_{j \in \mathcal{N}} x_{j, n} = 1 \\
+		& \displaystyle\sum_{j \in \mathcal{N}} x_{i, 1} = 0 \\
+		& \displaystyle\sum_{j \in \mathcal{N}} x_{n, j} = 0 \\
+		& h_{k}(\mathbf{x}) = 0 \quad k = 2, 3, \cdots, n - 1 \\
 		& x_{i, j} \in \{ 0, 1 \}
 	\end{aligned}
 \end{equation}
 
 \subsection*{(f)}
-Need modification
+This is a convex optimization problem as all the equality and inequality constrain are linear function.
+
 \section*{Q2}
 In order to prove that $\mathbf{x}^{*}$ is the optimal points of function $f_{0}(\mathbf{x})\frac{1}{2} \mathbf{x}^{T} \mathcal{P} \mathbf{x} + \mathbf{q}^{T} \mathbf{x} + r$ at point $\mathbf{x}^{*}$, we need to verify that for any $-1 \preceq \mathbf{x} \preceq 1$, the following equation:
 \begin{equation}
